@@ -27,7 +27,7 @@ TBD, but hopefully using straight nuget.
 
 ## Usage
 
-Using this library is simple. Just create your instance of IMediatR however you like, and provide it to the Store during construction:
+Using this library is simple. Just create your instance of `IMediator` however you like, and provide it to the Store during construction:
 
 ```
 static void Main(string[] args)
