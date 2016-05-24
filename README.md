@@ -5,6 +5,9 @@ MediatRedux is a simple combination of Jimmy Bogard's [MediatR library](https://
 ## Table of contents
 
 - [Motivation](#motivation)
+- [Installation](#installation)
+- [TODO](#todo)
+- [Examples](#examples)
 - [License](#license)
 
 
@@ -12,6 +15,10 @@ MediatRedux is a simple combination of Jimmy Bogard's [MediatR library](https://
 
 I created this library because the one thing about redux implementations I never liked
 is they either rely on strings to identify the actions, or you have some sort of large switch/if block that determines how to modify the state based on an action. I also don't like the large reducer function that results...and I know you can split it up, but I much prefer the concise implementation provided by MediatR for handling a specific action (or Request in MediatR speak).
+
+With MediatR you have a simple handler class that provides the one spot to go for understanding how a specific action affects the state object. Since it's a single class it's very easy to test and reason about.
+
+I can also easily add [decorators to implement the "middleware" idea](https://lostechies.com/jimmybogard/2014/09/09/tackling-cross-cutting-concerns-with-a-mediator-pipeline/) used in many redux implementations. With this you can add state loggers, validation, or any other cross-cutting concern you might want in your redux pipeline.
 
 
 ## Installation
@@ -41,8 +48,50 @@ static void Main(string[] args)
     Console.ReadLine();
 }
 
+private static IMediator BuildMediator()
+{
+    // Create the mediator using whatever IoC library you want
+}
+
 ```
 
+This example uses the following state class, actions and handlers:
+
+```
+public class State
+{
+    public int Counter { get; set; }
+}
+
+public class IncrementCounter : ReduxAction<State> {}
+
+public class IncrementCounterHandler : ReduxActionHandler<IncrementCounter, State>
+{
+    protected override void HandleAction(State state, IncrementCounter action)
+    {
+        state.Counter++;
+    }
+}
+
+public class DecrementCounter : ReduxAction<State> {}
+
+public class DecrementCounterHandler : ReduxActionHandler<DecrementCounter, State>
+{
+    protected override void HandleAction(State state, DecrementCounter action)
+    {
+        state.Counter--;
+    }
+}
+```
+
+## TODO
+
+- Add tests
+- Convert to a PCL
+
+## Examples
+
+- Console app using Autofac - [MediatRedux.Example.Autofac](https://github.com/sstorie/MediatRedux/tree/master/src/MediatRedux.Example.Autofac)
 
 ## License
 
