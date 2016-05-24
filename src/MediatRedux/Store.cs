@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using MediatR;
 
 namespace MediatRedux
 {
-        
+    /// <summary>
+    /// The public interface for the Store class
+    /// </summary>
+    /// <remarks>
+    /// Note, this was taken pretty much from Redux.NET and adapted with MediatR
+    /// https://github.com/GuillaumeSalles/redux.NET
+    /// </remarks>
+    /// <typeparam name="TState">The type of state class</typeparam>
     public interface IStore<TState> : IObservable<TState>
     {
-        IReduxAction<TState> Dispatch(IReduxAction<TState> action);
+        ReduxAction<TState> Dispatch(ReduxAction<TState> action);
 
         TState GetState();
     }
@@ -30,7 +33,7 @@ namespace MediatRedux
             _stateSubject.OnNext(_lastState);
         }
 
-        public IReduxAction<TState> Dispatch(IReduxAction<TState> action)
+        public ReduxAction<TState> Dispatch(ReduxAction<TState> action)
         {
             return InnerDispatch(action);
         }
@@ -45,7 +48,7 @@ namespace MediatRedux
             return _stateSubject.Subscribe(observer);
         }
 
-        private IReduxAction<TState> InnerDispatch(IReduxAction<TState> action)
+        private ReduxAction<TState> InnerDispatch(ReduxAction<TState> action)
         {
             lock (_syncRoot)
             {
@@ -53,9 +56,13 @@ namespace MediatRedux
                 //
                 action.State = _lastState;
 
+                // Fetch a new state using the mediator
+                //
                 _lastState = _mediator.Send(action);
             }
+
             _stateSubject.OnNext(_lastState);
+
             return action;
         }
     }
