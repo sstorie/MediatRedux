@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 
-namespace MediatRedux.Example.Autofac.Actions
+namespace MediatRedux
 {
     /// <summary>
     /// A base class to reduce the boilerplate assocaited with creating action 
-    /// handlers for the specific State object used in this class
+    /// handlers 
     /// </summary>
-    /// <typeparam name="TAction"></typeparam>
-    public abstract class ActionHandler<TAction> : IRequestHandler<TAction, State> where TAction : IReduxAction<State>
+    /// <typeparam name="TAction">The specific type of action this handler can handle</typeparam>
+    /// <typeparam name="TState">The state object type</typeparam>
+    public abstract class ReduxActionHandler<TAction, TState> : IRequestHandler<TAction, TState> where TAction : ReduxAction<TState>
     {
-        public State Handle(TAction action)
+        public TState Handle(TAction action)
         {
             // Create a copy of the initial state to satisfy the redux
             //  requirement of always emitting a new object
             //
-            var stateCopy = Mapper.Map<State>(action.State);
+            var stateCopy = Mapper.Map<TState>(action.State);
 
             HandleAction(stateCopy, action);
 
@@ -33,6 +29,6 @@ namespace MediatRedux.Example.Autofac.Actions
         /// <param name="state">The state object that should be updated.</param>
         /// <param name="action"></param>
         /// <returns></returns>
-        protected abstract void HandleAction(State state, TAction action);
+        protected abstract void HandleAction(TState state, TAction action);
     }
 }

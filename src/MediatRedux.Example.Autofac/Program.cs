@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Reactive.Linq;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Features.Variance;
 using MediatR;
@@ -41,7 +35,7 @@ namespace MediatRedux.Example.Autofac
 
             // Register our specific action handlers
             //
-            builder.RegisterAssemblyTypes(typeof(ActionHandler<>).GetTypeInfo().Assembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(typeof(State).GetTypeInfo().Assembly).AsImplementedInterfaces();
 
             // Boilerplate MediatR code
             //

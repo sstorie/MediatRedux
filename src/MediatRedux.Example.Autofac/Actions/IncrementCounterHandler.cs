@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediatRedux.Example.Autofac.Actions
 {
-    public class IncrementCounterHandler : ActionHandler<IncrementCounter>
+    public class IncrementCounterHandler : ReduxActionHandler<IncrementCounter, State>
     {
         protected override void HandleAction(State state, IncrementCounter action)
         {
