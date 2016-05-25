@@ -2,6 +2,8 @@
 
 MediatRedux is a simple combination of Jimmy Bogard's [MediatR library](https://github.com/jbogard/MediatR) with the Redux pattern implemented by Guillaume Salles's [Redux.NET project](https://github.com/GuillaumeSalles/redux.NET). It provides the functionality behind the redux pattern using Rx, but with the flexibility provided by MediatR.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/jjk6hi4el8wd075t?svg=true)](https://ci.appveyor.com/project/sstorie/mediatredux)
+
 ## Table of contents
 
 - [Motivation](#motivation)
