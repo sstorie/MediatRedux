@@ -14,4 +14,4 @@ build:
 after_build:
   - cmd: ECHO nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  #- cmd: appveyor PushArtifact "src\MediatRedux\MediatRedux.nuspec.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: appveyor PushArtifact "src\MediatRedux\MediatRedux.%GitVersion_NuGetVersion%.nupkg"
