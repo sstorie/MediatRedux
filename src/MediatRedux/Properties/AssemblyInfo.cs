@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MediatRedux")]
-[assembly: AssemblyDescription("A simple implementation of the redux pattern using MediatR")]
+[assembly: AssemblyDescription("MediatRedux is an implementation of the redux pattern using Rx and MediatR")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MediatRedux")]
