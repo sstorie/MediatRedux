@@ -1,0 +1,17 @@
+install:
+  - choco install gitversion.portable -pre -y
+
+assembly_info:
+  patch: false
+
+before_build:
+  - nuget restore
+  - ps: gitversion /l console /output buildserver /updateAssemblyInfo
+
+build:
+  project: MediatRedux.sln
+
+after_build:
+  - cmd: ECHO nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - cmd: nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  #- cmd: appveyor PushArtifact "src\MediatRedux\MediatRedux.nuspec.%GitVersion_NuGetVersion%.nupkg"
