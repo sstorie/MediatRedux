@@ -2,9 +2,9 @@
 <package >
   <metadata>
     <id>MediatRedux</id>
-    <version>0.1.0</version>
+    <version>0.0.0</version>
     <authors>Sam Storie</authors>
-    <licenseUrl>https://github.com/sstorie/MediatRedux/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/sstorie/MediatRedux</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MediatRedux is an implementation of the redux pattern using Rx and MediatR</description>
@@ -13,11 +13,12 @@
     <dependencies>
       <dependency id="AutoMapper" version="4.2.1" />
       <dependency id="MediatR" version="2.0.2" />
-      <dependency id="Rx-Core" version="2.2.5" />
-      <dependency id="Rx-Interfaces" version="2.2.5" />
-      <dependency id="Rx-Linq" version="2.2.5" />
       <dependency id="Rx-Main" version="2.2.5" />
-      <dependency id="Rx-PlatformServices" version="2.2.5" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="*.cs" target="src\" />
+    <file src="bin\$configuration$\$id$.dll" target="lib\net45\" />
+    <file src="bin\$configuration$\$id$.pdb" target="lib\net45\" />
+  </files>
 </package>

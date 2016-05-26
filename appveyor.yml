@@ -8,19 +8,23 @@ before_build:
   - nuget restore
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo
 
+platform: Any CPU
+
+configuration: Release
+
 build:
   project: MediatRedux.sln
 
 after_build:
-  - cmd: ECHO nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-  - cmd: nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+  - cmd: ECHO nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -Symbols
+  - cmd: nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%" -Symbols
   - cmd: appveyor PushArtifact "MediatRedux.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: appveyor PushArtifact "MediatRedux.%GitVersion_NuGetVersion%.symbols.nupkg"
   
 deploy:
   provider: NuGet
   api_key:
     secure: 9XuJqRv9B28vNQtKSpBl0i9oUlFanzsBPYLsK2nlP4yk7SXUDFb6Pm97jVZtj6I1
   skip_symbols: false
-  symbol_server:           # remove to push symbols to SymbolSource.org
   artifact: /.*\.nupkg/
   
