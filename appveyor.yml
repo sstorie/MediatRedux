@@ -16,7 +16,7 @@ after_build:
   - cmd: nuget pack src\MediatRedux\MediatRedux.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - cmd: appveyor PushArtifact "MediatRedux.%GitVersion_NuGetVersion%.nupkg"
   
-  deploy:
+deploy:
   provider: NuGet
   api_key:
     secure: 9XuJqRv9B28vNQtKSpBl0i9oUlFanzsBPYLsK2nlP4yk7SXUDFb6Pm97jVZtj6I1
