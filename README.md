@@ -25,7 +25,7 @@ I can also easily add [decorators to implement the "middleware" idea](https://lo
 
 ## Installation
 
-You should install MediatRedux using NuGet:
+You should install [MediatRedux using NuGet](https://www.nuget.org/packages/MediatRedux/):
 
 ```
 Install-Package MediatRedux
