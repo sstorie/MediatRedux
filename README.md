@@ -25,7 +25,13 @@ I can also easily add [decorators to implement the "middleware" idea](https://lo
 
 ## Installation
 
-TBD, but hopefully using straight nuget.
+You should install MediatRedux using NuGet:
+
+```
+Install-Package MediatRedux
+```
+
+Running the command above will install MediatRedux and all required dependencies.
 
 ## Usage
 
@@ -57,7 +63,7 @@ private static IMediator BuildMediator()
 
 ```
 
-This example uses the following state class, actions and handlers:
+The library provides two base classes `ReduxAction<TState>` and `ReduxActionHandler<TAction, TState>` that help reduce the boilerplate required. Simply derive your actions from `ReduxAction` and derive your handlers from `ReduxActionHandler`. Then in each handler, override the `HandleAction(TState state, ReduxAction action)` method and manipulate the state object as needed based on the provided action. The base class will take care of creating the copy of state you need to satisfy the redux pattern. This example uses the following state class, actions and handlers:
 
 ```
 public class State
