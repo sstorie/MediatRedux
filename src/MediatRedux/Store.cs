@@ -14,7 +14,7 @@ namespace MediatRedux
     /// <typeparam name="TState">The type of state class</typeparam>
     public interface IStore<TState> : IObservable<TState>
     {
-        ReduxAction<TState> Dispatch(ReduxAction<TState> action);
+        void Dispatch(ReduxAction<TState> action);
 
         TState GetState();
     }
@@ -33,10 +33,6 @@ namespace MediatRedux
             _stateSubject.OnNext(_lastState);
         }
 
-        public ReduxAction<TState> Dispatch(ReduxAction<TState> action)
-        {
-            return InnerDispatch(action);
-        }
 
         public TState GetState()
         {
@@ -48,8 +44,10 @@ namespace MediatRedux
             return _stateSubject.Subscribe(observer);
         }
 
-        private ReduxAction<TState> InnerDispatch(ReduxAction<TState> action)
+        public void Dispatch(ReduxAction<TState> action)
         {
+            // Ensure only one action is dispatched at a time
+            //
             lock (_syncRoot)
             {
                 // Set the current state in the action
@@ -61,9 +59,9 @@ namespace MediatRedux
                 _lastState = _mediator.Send(action);
             }
 
+            // emit the new state to any subscribers
+            //
             _stateSubject.OnNext(_lastState);
-
-            return action;
         }
     }
 }
